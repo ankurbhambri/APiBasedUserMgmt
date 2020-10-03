@@ -1,0 +1,1 @@
+./manage.py addUser --full_name="Egon Spengler" --start_time="Feb 1 2020  1:33PM" --end_time="Feb 1 2020 1:54PM" --time_zone="America/Los_Angeles"

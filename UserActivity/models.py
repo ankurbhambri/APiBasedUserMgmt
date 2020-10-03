@@ -1,3 +1,37 @@
+import random
+import string
 from django.db import models
 
-# Create your models here.
+
+def id_generator(size=8, chars=string.ascii_uppercase + string.digits):
+    return ''.join(random.choice(chars) for _ in range(size))
+
+
+class TimeStampedModel(models.Model):
+
+    """
+    An abstract base class model that provides self-updating
+    ``created`` and ``modified`` fields.
+    """
+    created_at = models.DateTimeField(
+        verbose_name='Created', auto_now_add=True, editable=False)
+    modified_at = models.DateTimeField(verbose_name='modified', auto_now=True)
+
+    class Meta:
+        abstract = True
+
+
+class UserProfile(TimeStampedModel):
+    id = models.CharField(primary_key=True, editable=False, max_length=10)
+    full_name = models.CharField(max_length=100)
+    start_time = models.CharField(max_length=100)
+    end_time = models.CharField(max_length=100)
+    time_zone = models.CharField(max_length=50)
+
+    def save(self, *args, **kwargs):
+        self.id = 'W' + id_generator()
+        super(UserProfile, self).save(*args, **kwargs)
+
+
+class UsersActivity(TimeStampedModel):
+    extra_feild = models.JSONField()
