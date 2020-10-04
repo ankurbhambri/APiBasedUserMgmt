@@ -26,7 +26,7 @@ SECRET_KEY = '=th@k(4eg4^)st#xe+5=583vy&nzel6#_=opd$%%gag!c!4#qc'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost']
+ALLOWED_HOSTS = ['frozen-wave-66228.herokuapp.com', 'localhost']
 
 
 # Application definition
