@@ -77,13 +77,19 @@ WSGI_APPLICATION = 'FullThrottle.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'ftl',
-        'USER': 'postgres',
-        'PASSWORD': 'root',
-        'HOST': 'localhost',
+        # 'NAME': 'ftl',
+        # 'USER': 'postgres',
+        # 'PASSWORD': 'root',
+        # 'HOST': 'localhost',
+        # 'PORT': 5432,
+        'NAME': 'd4ng4j0u3rc9ur',
+        'USER': 'exeliwicfiluir',
+        'PASSWORD': '4cb3b212b6d1067b28e7d0b3bf1036680aaed057fb802fab50c75550717c6dc8',
+        'HOST': 'ec2-54-146-4-66.compute-1.amazonaws.com',
         'PORT': 5432,
     }
 }
