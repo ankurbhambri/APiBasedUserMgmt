@@ -1,7 +1,7 @@
 import names
 import random
 from datetime import datetime, timedelta
-from UserActivity.models import UserProfile
+from UserActivity.models import UserProfile, UsersActivity
 from django.core.management.base import BaseCommand
 
 
@@ -29,7 +29,7 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument('--id', type=str,
                             help='Indicates the Id User')
-        parser.add_argument('--full_name', type=str,
+        parser.add_argument('--real_name', type=str,
                             help='Indicates the Full Name')
         parser.add_argument('--start_time', type=str,
                             help='Indicates the Start Time')
@@ -41,7 +41,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         today = datetime.now()
         id = options['id']
-        full_name = options['full_name'] if options['full_name'] \
+        real_name = options['real_name'] if options['real_name'] \
             else names.get_full_name()
         start_time = options['start_time'] if options['start_time'] \
             else today.strftime("%B %d, %Y %H:%M:%p")
@@ -49,20 +49,20 @@ class Command(BaseCommand):
             else (today + timedelta(hours=2)).strftime("%B %d, %Y %H:%M:%p")
         time_zone = options['time_zone'] if options['time_zone'] \
             else time_zone_func()
-        # if id:
-        #     user = UserProfile.objects.filter(id=id)
-        #     if user:
-        #         user.update(
-        #             full_name=full_name, start_time=start_time,
-        #             end_time=end_time, time_zone=time_zone)
-        #         print('User is successfully updated', user[0].id)
-        #     else:
-        #         user = UserProfile.objects.create(
-        #             full_name=full_name, start_time=start_time,
-        #             end_time=end_time, time_zone=time_zone)
-        #         print('User is successfully created', user.id)
-        # else:
-        user = UserProfile.objects.create(
-            full_name=full_name, start_time=start_time,
-            end_time=end_time, time_zone=time_zone)
-        print('User Activity is Successfully Created', user.id)  
+        activity = {
+            "request_in": start_time,
+            "request_out": end_time
+        }
+        if id:
+            user = UserProfile.objects.filter(id=id)
+            if user:
+                UsersActivity.objects.create(
+                    user=user[0], extra_feild=activity)
+                print('User Activity is successfully created', user[0].id)
+            else:
+                print('No user exists with this id !')
+        else:
+            new_user = UserProfile.objects.create(
+                real_name=real_name, time_zone=time_zone)
+            UsersActivity.objects.create(user=new_user, extra_feild=activity)
+            print('New user and its activity is successfully created', new_user.id)

@@ -4,11 +4,11 @@ from UserActivity.models import UserProfile, UsersActivity
 
 @admin.register(UserProfile)
 class UserProfileAdmin(admin.ModelAdmin):
-    list_display = ('id', 'full_name', 'start_time', 'end_time', 'time_zone',)
-    search_fields = ('id', 'full_name',)
+    list_display = ('id', 'real_name', 'time_zone',)
+    search_fields = ('id', 'real_name',)
 
 
 @admin.register(UsersActivity)
 class UsersActivityAdmin(admin.ModelAdmin):
-    list_display = ('id', 'extra_feild',)
-    search_fields = ('id', 'extra_feild',)
+    list_display = ('user', 'extra_feild',)
+    search_fields = ('user', 'extra_feild',)

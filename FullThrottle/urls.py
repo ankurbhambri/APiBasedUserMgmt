@@ -25,4 +25,5 @@ router.register(r'all_user_activity', UserActivityViewset, basename="all_user_ac
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
+    path('api-auth/', include('rest_framework.urls')),
 ]

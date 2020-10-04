@@ -23,15 +23,18 @@ class TimeStampedModel(models.Model):
 
 class UserProfile(TimeStampedModel):
     id = models.CharField(primary_key=True, editable=False, max_length=10)
-    full_name = models.CharField(max_length=100)
-    start_time = models.CharField(max_length=100)
-    end_time = models.CharField(max_length=100)
+    real_name = models.CharField(max_length=100)
     time_zone = models.CharField(max_length=50)
 
     def save(self, *args, **kwargs):
         self.id = 'W' + id_generator()
         super(UserProfile, self).save(*args, **kwargs)
 
+    def __str__(self):
+        return self.id
+
 
 class UsersActivity(TimeStampedModel):
+    user = models.ForeignKey(
+        UserProfile, null=False, on_delete=models.CASCADE)
     extra_feild = models.JSONField()
