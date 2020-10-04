@@ -11,6 +11,8 @@
 -> Finally, run your django runserver.<br/>
 == python manage.py runserver<br/>
 
+# Superuser username - root : pass - root
+
 # To add new user with it's fresh activity entry there is managemnet command called 'addUser'.
 
 Note:- (name, activity time, zone all are optional excluding user id)<br/>
